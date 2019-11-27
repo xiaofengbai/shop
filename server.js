@@ -1,6 +1,5 @@
 import Koa from "koa";
 import webpack from "webpack";
-import config from "./webpack.config.js";
 import router from "./router/index";
 const app = new Koa();
 
