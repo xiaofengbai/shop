@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "babel-node --presets env server.js"
+    "dev": "babel-node  server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,11 +14,14 @@
     "koa": "^2.11.0",
     "koa-logger": "^3.2.1",
     "koa-router": "^7.4.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "mongodb": "^3.3.5"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
+    "@babel/core": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
     "koa-webpack": "^5.2.4",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"

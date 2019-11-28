@@ -1,8 +1,10 @@
 import Koa from "koa";
 import webpack from "webpack";
 import router from "./router/index";
+import config from "./config/base";
+import db from "./config/mongo";
 const app = new Koa();
-
+db.initBase();
 app.use(router.routes()).use(router.allowedMethods());
 
 if (process.argv[2] && process.argv[2][0] == "c") {
@@ -17,7 +19,7 @@ if (process.argv[2] && process.argv[2][0] == "c") {
       process.exit();
     });
 } else {
-  app.listen(3001, () => {
-    console.log("server run on 127.0.0.1:3001");
+  app.listen(config.port, config.ip, () => {
+    console.log("connect", `server ${config.ip + ":" + config.port} created`);
   });
 }
