@@ -1,27 +1,25 @@
 import test from "../service/test";
-const getTest = async (ctx, next) => {
-  const { name, age } = ctx.query;
-  const res = await test.testQuery(name, age);
-  ctx.body = {
-    data: res
-  };
-};
-const postTest = async (ctx, next) => {
-  const { name, age } = ctx.body;
-  const res = await test.testQuery(name, age);
-  ctx.body = {
-    data: res
-  };
-};
-const paramesTest = async (ctx, next) => {
-  const { name, age } = ctx.params;
-  const res = await test.testQuery(name, age);
-  ctx.body = {
-    data: res
-  };
-};
-export default {
-  getTest,
-  paramesTest,
-  postTest
-};
+
+export default class Test {
+  async getTest(ctx, next) {
+    const { name, age } = ctx.query;
+    const res = await test.testQuery(name, age);
+    ctx.body = {
+      data: res
+    };
+  }
+  async postTest(ctx, next) {
+    const { name, age } = ctx.body;
+    const res = await test.testQuery(name, age);
+    ctx.body = {
+      data: res
+    };
+  }
+  async paramesTest(ctx, next) {
+    const { name, age } = ctx.params;
+    const res = await test.testQuery(name, age);
+    ctx.body = {
+      data: res
+    };
+  }
+}

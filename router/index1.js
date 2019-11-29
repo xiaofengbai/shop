@@ -1,11 +1,8 @@
 const Router = require("koa-router");
-import test from "../controller/test";
-import {
-  testQuery,
-  testQuery1,
-  testQuery2,
-  ValidateSchema
-} from "../middleware/test";
+import Test from "../controller/test";
+import ValidateSchema from "../common/validateSchema";
+import { testQuery, testQuery1, testQuery2 } from "../middleware/test";
+const test = new Test();
 const router = Router({
   prefix: "/v1"
 });
