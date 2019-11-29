@@ -3,8 +3,12 @@ import webpack from "webpack";
 import router from "./router/index";
 import config from "./config/base";
 import db from "./config/mongo";
+import koaBody from "koa-body";
+import bodyParser from "koa-bodyparser";
+
 const app = new Koa();
 db.initBase();
+app.use(bodyParser());
 app.use(router.routes()).use(router.allowedMethods());
 
 if (process.argv[2] && process.argv[2][0] == "c") {
