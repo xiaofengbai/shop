@@ -17,13 +17,13 @@ class MongonDB {
       this.onDBcnnected
     );
   };
-  onDBcnnected = (err, client) => {
+  onDBcnnected = (err, db) => {
     if (err) {
       console.log("connect err:" + err);
-      client.close();
+      db.close();
       return;
     }
-    MongoManager.base = client;
+    MongoManager.base = db;
   };
   getDB = () => {
     return MongoManager.base.db(config.db.baseDBName);
