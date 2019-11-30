@@ -1,4 +1,4 @@
-import mongo from "../config/mongo";
+import mongo from "../../config/mongo";
 const testQuery = async (name, age) => {
   return mongo
     .getDB()

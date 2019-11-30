@@ -1,6 +1,6 @@
 import Koa from "koa";
 import webpack from "webpack";
-import router from "./router/index";
+import router from "./src/router/index";
 import config from "./config/base";
 import db from "./config/mongo";
 import koaBody from "koa-body";
