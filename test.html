@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script>
+      function myFunction(e) {
+        let formData = new FormData();
+        let file = document.getElementById("file").files;
+        formData.append("name", "1111");
+        formData.append("file", file);
+
+        fetch("http://127.0.0.1:3030/v1/test1", {
+          method: "POST",
+
+          body: formData
+        })
+          .then(response => {
+            return response.json();
+          })
+          .then(response => {
+            debugger;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      }
+    </script>
+  </head>
+  <body>
+    <input type="text" id="input" />
+    <input type="file" id="file" />
+    <button onclick="myFunction()">点我</button>
+  </body>
+</html>

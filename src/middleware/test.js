@@ -17,5 +17,10 @@ const testQuery2 = {
     name: Joi.string()
   })
 };
-
-export { testQuery, testQuery1, testQuery2 };
+const testQuery3 = {
+  body: Joi.object({
+    name: Joi.string(),
+    file: Joi.any()
+  })
+};
+export { testQuery, testQuery1, testQuery2, testQuery3 };

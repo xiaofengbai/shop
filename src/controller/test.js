@@ -22,4 +22,8 @@ export default class Test {
       data: res
     };
   }
+  async getTest3(ctx) {
+    const { name, file } = ctx.body;
+    console.log(name, file);
+  }
 }
