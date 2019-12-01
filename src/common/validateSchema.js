@@ -1,7 +1,6 @@
 const ValidateSchema = function(schema) {
   return async (ctx, next) => {
     const key = Object.keys(schema)[0];
-    let tempCtx = ctx;
     if (key === "body") {
       ctx.body = ctx.request.body;
     }
