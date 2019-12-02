@@ -8,7 +8,20 @@ import koaBody from "koa-body";
 
 const app = new Koa();
 db.initBase();
-app.use(koaBody({ multipart: true }));
+app.use(
+  koaBody({
+    multipart: true,
+    formidable: {
+      maxFileSize: 200 * 1024 * 10240,
+      uploadDir: "upload/",
+      // onFileBegin: (name, file) => {
+      //   // const fileFormat = file.name.split(".");
+      //   // file.name = `${Date.now()}.${fileFormat[fileFormat.length - 1]}`;
+      //   file.path = `upload/${file.name}`;
+      // }
+    }
+  })
+);
 app.use(router.routes()).use(router.allowedMethods());
 
 if (process.argv[2] && process.argv[2][0] == "c") {
