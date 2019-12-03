@@ -55,6 +55,13 @@ if (process.argv[2] && process.argv[2][0] == "c") {
     });
 } else {
   app.listen(config.port, config.ip, () => {
-    console.info("connect", `server ${config.ip + ":" + config.port} created`);
+    console.info(
+      "connect",
+      `server ${config.ip +
+        ":" +
+        config.port +
+        " in " +
+        process.env.SERVER} created`
+    );
   });
 }
