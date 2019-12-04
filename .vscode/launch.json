@@ -19,8 +19,8 @@
       "name": "启动程序",
       "skipFiles": ["<node_internals>/**"],
       "runtimeExecutable": "babel-node",
-      "program": "${workspaceFolder}/server.js"
-      // "runtimeArgs": ["nodemon"]
+      "program": "${workspaceFolder}/server.js",
+      // "runtimeArgs": ["SERVER=dev"]
     }
   ]
 }

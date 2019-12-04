@@ -36,7 +36,7 @@ const query = async ({ name, belongsTo, page = 1, pageSize = 10 }) => {
     .collection("shopping")
     .find(queryObj)
     .limit(Number(pageSize))
-    .skip(Number(page - 1))
+    .skip(Number((page - 1) * pageSize))
     .toArray();
 };
 const queryCount = async ({ name, belongsTo }) => {
@@ -74,12 +74,12 @@ const update = async ({ id, name, total, remainder, belongsTo, price }) => {
       }
     );
 };
-const remove = async({ id }) =>{
+const remove = async ({ id }) => {
   return mongodb
     .getDB()
     .collection("shopping")
     .removeOne({ _id: ObjectId(id) });
-}
+};
 export default {
   createShop,
   query,
