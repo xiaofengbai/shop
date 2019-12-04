@@ -1,7 +1,11 @@
+import { get } from "lodash";
 const ValidateSchema = function(schema) {
   return async (ctx, next) => {
     if (process.env.SERVER === "dev") {
-      ctx.set("Access-Control-Allow-Origin", "*");
+      ctx.set(
+        "Access-Control-Allow-Origin",
+        get(ctx, "request.headers.origin")
+      );
       ctx.set("Access-Control-Allow-Credentials", true);
     }
     const key = Object.keys(schema)[0];
