@@ -6,7 +6,7 @@ module.exports = {
   server: process.env.SERVER || "dev",
   rootPath: global.rootPath,
   db: {
-    url: "mongodb://127.0.0.1:27017",
+    url: "mongodb://127.0.0.1:27017/cddb",
     options: {
       user: "",
       pass: ""

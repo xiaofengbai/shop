@@ -1,54 +1,42 @@
 import mongodb from "../../config/mongo";
 const ObjectId = require("mongodb").ObjectId;
 import { dealFindParames } from "../tool/queryDeal";
+import { model as shoppingModel } from "../model/shop";
 import moment from "moment";
 const createShop = async ({
   name = "",
   total = 0,
   remainder = 0,
-  belongsTo = "",
+  belongsTo,
   price = 0
 }) => {
-  const insertObj = {
+  const insertObj = new shoppingModel({
     name,
-    _createTime: moment().format(),
     total,
     remainder,
     belongsTo,
     price
-  };
-  mongodb
-    .getDB()
-    .collection("shopping")
-    .insertOne(insertObj, (err, result) => {
-      if (!err) {
-        return result;
-      }
-    });
+  });
+  return insertObj.save();
 };
+
 const query = async ({ name, belongsTo, page = 1, pageSize = 10 }) => {
   const queryObj = dealFindParames({
     name: name ? new RegExp(`${name}`) : null,
     belongsTo
   });
-  return mongodb
-    .getDB()
-    .collection("shopping")
-    .find(queryObj)
+  return await shoppingModel
+    .find({ total: { $gte: 30 } })
     .limit(Number(pageSize))
-    .skip(Number((page - 1) * pageSize))
-    .toArray();
+    .skip(Number((page - 1) * pageSize));
 };
+
 const queryCount = async ({ name, belongsTo }) => {
   const queryObj = dealFindParames({
     name: name ? new RegExp(`${name}`) : null,
     belongsTo
   });
-  return mongodb
-    .getDB()
-    .collection("shopping")
-    .find(queryObj)
-    .count();
+  return await shoppingModel.find({ total: { $gte: 30 } }).count();
 };
 const getDetail = async ({ id }) => {
   return mongodb

@@ -1,7 +1,7 @@
 import Joi from "@hapi/joi";
 const createShop = {
   body: Joi.object({
-    name: Joi.string().required(),
+    name: Joi.string(),
     total: Joi.number(),
     remainder: Joi.number(),
     belongsTo: Joi.string(),
