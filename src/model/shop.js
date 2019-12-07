@@ -3,6 +3,14 @@ import { conn } from "../connect/mongoDB";
 import { schemaOptions } from "../connect/mongoooseSchema";
 
 const collectionName = "shopping";
+const honour = new Schema(
+  {
+    title: {
+      type: String
+    }
+  },
+  { _id: true }
+);
 
 const schema = new Schema(
   {
@@ -21,6 +29,18 @@ const schema = new Schema(
     },
     price: {
       type: Number
+    },
+    config: {
+      startDate: Date,
+      endDate: Date,
+      active: Boolean
+    },
+    honour: {
+      type: honour
+    },
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: "author"
     }
   },
   schemaOptions

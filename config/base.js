@@ -5,6 +5,7 @@ module.exports = {
   port: process.env.PORT || 3000,
   server: process.env.SERVER || "dev",
   rootPath: global.rootPath,
+  serveStatic:true,
   db: {
     url: "mongodb://127.0.0.1:27017/cddb",
     options: {

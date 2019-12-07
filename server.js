@@ -5,19 +5,33 @@ import config from "./config/base";
 import db from "./config/mongo";
 import koaBody from "koa-body";
 import log4js from "koa-log4";
-// import koaBody from "koa-bodyparser";
-
+import serve from "koa-static";
+import path from "path";
+import { get } from "lodash";
 const app = new Koa();
 const logger = log4js.getLogger("app");
 
 app.use(log4js.koaLogger(log4js.getLogger("http"), { level: "auto" }));
 
+// app.use(serve(path.join(__dirname, "./dist")));
+
 app.use(async (ctx, next) => {
   const start = new Date();
-  await next();
+  if (config.server === "dev") {
+    ctx.set("Access-Control-Allow-Origin", get(ctx, "request.header.origin"));
+    ctx.set("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+    ctx.set("Access-Control-Allow-Headers", "Content-Type");
+    ctx.set("Access-Control-Allow-Credentials", true);
+    ctx.set("Access-Control-Max-Age", 3600 * 24);
+  }
+  if (ctx.method == "OPTIONS") {
+    ctx.response.status = 204;
+  } else {
+    await next();
+  }
+
   const ms = new Date() - start;
-  console.log(2222, `${ctx.method} ${ctx.url} - ${ms}ms`);
-  logger.info(`${ctx.method} ${ctx.url} - ${ms}ms`);
+  console.log("[http]", `${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
 db.initBase();
@@ -38,7 +52,7 @@ app.use(
 app.use(router.routes()).use(router.allowedMethods());
 
 app.on("error", function(err, ctx) {
-  console.error(11111, err);
+  console.error("[http]", err);
   logger.error("server error", err, ctx);
 });
 

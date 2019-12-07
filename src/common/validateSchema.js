@@ -1,15 +1,6 @@
-import { get } from "lodash";
 import config from "../../config/base";
 const ValidateSchema = function(schema) {
   return async (ctx, next) => {
-    if (config.server === "dev") {
-      ctx.set(
-        "Access-Control-Allow-Origin",
-        get(ctx, "request.header.origin")
-      );
-      ctx.set("Access-Control-Allow-Headers", true);
-      ctx.set("Access-Control-Allow-Credentials", true);
-    }
     const key = Object.keys(schema)[0];
     if (key === "body") {
       ctx.body = ctx.request.body;

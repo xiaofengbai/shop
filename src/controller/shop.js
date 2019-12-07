@@ -2,13 +2,25 @@ import shop from "../service/shop";
 
 export default class Shop {
   async createShop(ctx, next) {
-    const { name, total, remainder, belongsTo, price } = ctx.body;
+    const {
+      name,
+      total,
+      remainder,
+      belongsTo,
+      price,
+      config,
+      honour,
+      author
+    } = ctx.body;
     const res = await shop.createShop({
       name,
       total,
       remainder,
       belongsTo,
-      price
+      price,
+      config,
+      honour,
+      author
     });
     ctx.body = {
       success: true,
@@ -16,9 +28,23 @@ export default class Shop {
     };
   }
   async queryShop(ctx) {
-    const { name, belongsTo, page, pageSize } = ctx.query;
-    const res = await shop.query({ name, belongsTo, page, pageSize });
-    const count = await shop.queryCount({ name, belongsTo, page, pageSize });
+    const { name, belongsTo, page, pageSize, sortBy, order } = ctx.query;
+    const res = await shop.query({
+      name,
+      belongsTo,
+      page,
+      pageSize,
+      sortBy,
+      order
+    });
+    const count = await shop.queryCount({
+      name,
+      belongsTo,
+      page,
+      pageSize,
+      sortBy,
+      order
+    });
     ctx.body = {
       success: true,
       data: res,

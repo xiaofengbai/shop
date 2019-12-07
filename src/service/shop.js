@@ -3,32 +3,32 @@ const ObjectId = require("mongodb").ObjectId;
 import { dealFindParames } from "../tool/queryDeal";
 import { model as shoppingModel } from "../model/shop";
 import moment from "moment";
-const createShop = async ({
-  name = "",
-  total = 0,
-  remainder = 0,
-  belongsTo,
-  price = 0
-}) => {
-  const insertObj = new shoppingModel({
-    name,
-    total,
-    remainder,
-    belongsTo,
-    price
-  });
-  return insertObj.save();
+const createShop = async parames => {
+  return new shoppingModel(parames).save();
 };
 
-const query = async ({ name, belongsTo, page = 1, pageSize = 10 }) => {
+const query = async ({
+  name,
+  belongsTo,
+  page = 1,
+  pageSize = 0,
+  sortBy,
+  order
+}) => {
   const queryObj = dealFindParames({
-    name: name ? new RegExp(`${name}`) : null,
+    name: name ? new RegExp(name) : null,
     belongsTo
   });
+  const sortObj = {};
+  if (sortBy) {
+    sortObj[sortBy] = order;
+  }
   return await shoppingModel
-    .find({ total: { $gte: 30 } })
+    .find(queryObj)
+    .sort(sortObj)
     .limit(Number(pageSize))
-    .skip(Number((page - 1) * pageSize));
+    .skip(Number((page - 1) * pageSize))
+    .populate("author");
 };
 
 const queryCount = async ({ name, belongsTo }) => {
@@ -36,14 +36,13 @@ const queryCount = async ({ name, belongsTo }) => {
     name: name ? new RegExp(`${name}`) : null,
     belongsTo
   });
-  return await shoppingModel.find({ total: { $gte: 30 } }).count();
+  return await shoppingModel.find(queryObj).count();
 };
+
 const getDetail = async ({ id }) => {
-  return mongodb
-    .getDB()
-    .collection("shopping")
-    .findOne({ _id: ObjectId(id) });
+  return shoppingModel.findOne({ _id: ObjectId(id) });
 };
+
 const update = async ({ id, name, total, remainder, belongsTo, price }) => {
   const mdObj = dealFindParames({
     name,
@@ -52,21 +51,12 @@ const update = async ({ id, name, total, remainder, belongsTo, price }) => {
     belongsTo,
     price
   });
-  return mongodb
-    .getDB()
-    .collection("shopping")
-    .updateOne(
-      { _id: ObjectId(id) },
-      {
-        $set: mdObj
-      }
-    );
+  return shoppingModel.findOne({ _id: ObjectId(id) }).update({
+    $set: mdObj
+  });
 };
 const remove = async ({ id }) => {
-  return mongodb
-    .getDB()
-    .collection("shopping")
-    .removeOne({ _id: ObjectId(id) });
+  return shoppingModel.remove({ _id: ObjectId(id) });
 };
 export default {
   createShop,

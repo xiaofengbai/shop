@@ -5,7 +5,10 @@ const createShop = {
     total: Joi.number(),
     remainder: Joi.number(),
     belongsTo: Joi.string(),
-    price: Joi.number()
+    price: Joi.number(),
+    config: Joi.object(),
+    honour: Joi.any(),
+    author: Joi.string()
   })
 };
 const queryShop = {
@@ -15,7 +18,9 @@ const queryShop = {
     page: Joi.number()
       .min(1)
       .integer(),
-    pageSize: Joi.number()
+    pageSize: Joi.number(),
+    sortBy: Joi.string(),
+    order: Joi.string()
   })
 };
 const getDetail = {
