@@ -22,7 +22,7 @@ const schema = new Schema(
       type: Number
     },
     remainder: {
-      type: String
+      type: Number
     },
     belongsTo: {
       type: String
