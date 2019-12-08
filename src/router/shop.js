@@ -13,7 +13,7 @@ const router = Router({
   prefix: "/v1/shop"
 });
 router.put("/create", ValidateSchema(createShop), shop.createShop);
-router.get("/list", ValidateSchema(queryShop), shop.queryShop);
+router.post("/list", ValidateSchema(queryShop), shop.queryShop);
 router.get("/detail/:id", ValidateSchema(getDetail), shop.getDetail);
 router.post("/update", ValidateSchema(update), shop.update);
 router.delete("/remove/:id", ValidateSchema(remove), shop.remove);

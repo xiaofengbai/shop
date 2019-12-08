@@ -3,6 +3,8 @@ const ObjectId = require("mongodb").ObjectId;
 import { dealFindParames } from "../tool/queryDeal";
 import { model as shoppingModel } from "../model/shop";
 import moment from "moment";
+import { isEmpty } from "lodash";
+
 const createShop = async parames => {
   return new shoppingModel(parames).save();
 };
@@ -13,12 +15,19 @@ const query = async ({
   page = 1,
   pageSize = 0,
   sortBy,
-  order
+  order,
+  config = {}
 }) => {
   const queryObj = dealFindParames({
     name: name ? new RegExp(name) : null,
     belongsTo
   });
+  if (!isEmpty(config.publicationDate)) {
+    queryObj["config.publicationDate"] = {
+      $gt: new Date(config.publicationDate[0]),
+      $lte: new Date(config.publicationDate[1])
+    };
+  }
   const sortObj = {};
   if (sortBy) {
     sortObj[sortBy] = order;
@@ -43,13 +52,22 @@ const getDetail = async ({ id }) => {
   return shoppingModel.findOne({ _id: ObjectId(id) });
 };
 
-const update = async ({ id, name, total, remainder, belongsTo, price }) => {
+const update = async ({
+  id,
+  name,
+  total,
+  remainder,
+  belongsTo,
+  price,
+  config
+}) => {
   const mdObj = dealFindParames({
     name,
     total,
     remainder,
     belongsTo,
-    price
+    price,
+    config
   });
   return shoppingModel.findOne({ _id: ObjectId(id) }).update({
     $set: mdObj

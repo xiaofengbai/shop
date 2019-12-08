@@ -28,14 +28,15 @@ export default class Shop {
     };
   }
   async queryShop(ctx) {
-    const { name, belongsTo, page, pageSize, sortBy, order } = ctx.query;
+    const { name, belongsTo, page, pageSize, sortBy, order, config } = ctx.body;
     const res = await shop.query({
       name,
       belongsTo,
       page,
       pageSize,
       sortBy,
-      order
+      order,
+      config
     });
     const count = await shop.queryCount({
       name,
@@ -60,14 +61,15 @@ export default class Shop {
     };
   }
   async update(ctx) {
-    const { id, name, total, remainder, belongsTo, price } = ctx.body;
+    const { id, name, total, remainder, belongsTo, price, config } = ctx.body;
     const res = await shop.update({
       id,
       name,
       total,
       remainder,
       belongsTo,
-      price
+      price,
+      config
     });
     ctx.body = {
       success: true,

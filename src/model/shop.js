@@ -33,7 +33,9 @@ const schema = new Schema(
     config: {
       startDate: Date,
       endDate: Date,
-      active: Boolean
+      active: Boolean,
+      author: String,
+      publicationDate: Date
     },
     honour: {
       type: honour

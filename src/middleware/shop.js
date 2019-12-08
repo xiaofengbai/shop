@@ -12,7 +12,7 @@ const createShop = {
   })
 };
 const queryShop = {
-  query: Joi.object({
+  body: Joi.object({
     belongsTo: Joi.string(),
     name: Joi.string(),
     page: Joi.number()
@@ -20,7 +20,8 @@ const queryShop = {
       .integer(),
     pageSize: Joi.number(),
     sortBy: Joi.string(),
-    order: Joi.string()
+    order: Joi.string(),
+    config: Joi.object()
   })
 };
 const getDetail = {
@@ -35,7 +36,8 @@ const update = {
     total: Joi.number(),
     remainder: Joi.number(),
     belongsTo: Joi.string(),
-    price: Joi.number()
+    price: Joi.number(),
+    config: Joi.object()
   })
 };
 const remove = {
