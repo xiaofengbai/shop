@@ -4,26 +4,23 @@ import router from "./src/router/index";
 import config from "./config/base";
 import db from "./config/mongo";
 import koaBody from "koa-body";
-import log4js from "koa-log4";
 import serve from "koa-static";
 import path from "path";
 import { get } from "lodash";
+import log4js from "./config/log4js";
+
+const logger = log4js.getLogger();
 const app = new Koa();
-const logger = log4js.getLogger("app");
 
-app.use(log4js.koaLogger(log4js.getLogger("http"), { level: "auto" }));
-
-// app.use(serve(path.join(__dirname, "./dist")));
+const logDir = path.join(__dirname, "logs");
 
 app.use(async (ctx, next) => {
   const start = new Date();
-  if (config.server === "dev") {
-    ctx.set("Access-Control-Allow-Origin", get(ctx, "request.header.origin"));
-    ctx.set("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
-    ctx.set("Access-Control-Allow-Headers", "Content-Type");
-    ctx.set("Access-Control-Allow-Credentials", true);
-    ctx.set("Access-Control-Max-Age", 3600 * 24);
-  }
+  ctx.set("Access-Control-Allow-Origin", get(ctx, "request.header.origin"));
+  ctx.set("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+  ctx.set("Access-Control-Allow-Headers", "Content-Type");
+  ctx.set("Access-Control-Allow-Credentials", true);
+  ctx.set("Access-Control-Max-Age", 3600 * 24);
   if (ctx.method == "OPTIONS") {
     ctx.response.status = 204;
   } else {
@@ -31,7 +28,7 @@ app.use(async (ctx, next) => {
   }
 
   const ms = new Date() - start;
-  console.log("[http]", `${ctx.method} ${ctx.url} - ${ms}ms`);
+  logger.info(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
 db.initBase();
@@ -52,7 +49,6 @@ app.use(
 app.use(router.routes()).use(router.allowedMethods());
 
 app.on("error", function(err, ctx) {
-  console.error("[http]", err);
   logger.error("server error", err, ctx);
 });
 
@@ -69,7 +65,7 @@ if (process.argv[2] && process.argv[2][0] == "c") {
     });
 } else {
   app.listen(config.port, config.ip, () => {
-    console.info(
+    logger.info(
       "connect",
       `server ${config.ip + ":" + config.port + " in " + config.server} created`
     );
