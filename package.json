@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "SERVER=dev nodemon --exec babel-node server.js",
-    "start": "SERVER=production nodemon --exec babel-node server.js"
+    "start": "SERVER=production nodemon --exec babel-node server.js",
+    "restart": ""
   },
   "keywords": [],
   "author": "",
