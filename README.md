@@ -30,6 +30,7 @@
 ## 项目的目录结构
 
 
+```
 shop
 ├── README.md                                   项目描述
 ├── config                                      基本配置
@@ -74,3 +75,4 @@ shop
 │       └── queryDeal.js
 ├── test.html
 └── tree.md                                     整体项目目录
+```
