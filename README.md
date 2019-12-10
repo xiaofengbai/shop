@@ -26,3 +26,51 @@
 
 * 看到终端最后打印出来类似
   `2019-11-29T22:48:38.808+0800 I NETWORK [conn44] end connection 127.0.0.1:55089 (3 connections now open)`表示 MongoDB 正常启动
+
+## 项目的目录结构
+
+
+shop
+├── README.md                                   项目描述
+├── config                                      基本配置
+│   ├── base.js                                 
+│   └── mongo.js                                
+├── doc                                         文档
+│   └── 运行环境.md
+├── log4js.json                                 log4j日志
+├── logs
+│   └── log4jsconnect.log
+├── nginx.config                                nginx配置
+├── package-lock.json
+├── package.json                                package管理
+├── server.js                                   程序入口
+├── src                                         主要代码
+│   ├── common                                  通用目录
+│   │   └── validateSchema.js                   参数校验中间件
+│   ├── connect
+│   │   ├── mongoDB.js                          链接数据库
+│   │   └── mongoooseSchema.js                  通用schaema
+│   ├── controller                              控制器
+│   │   ├── author.js
+│   │   ├── shop.js
+│   │   └── test.js
+│   ├── middleware                              参数middleware
+│   │   ├── author.js
+│   │   ├── shop.js
+│   │   └── test.js
+│   ├── model                                   schmea model
+│   │   ├── author.js
+│   │   └── shop.js
+│   ├── router                                  路由接口定义
+│   │   ├── author.js
+│   │   ├── index.js
+│   │   ├── index1.js
+│   │   └── shop.js
+│   ├── service                                 service
+│   │   ├── author.js
+│   │   ├── shop.js
+│   │   └── test.js
+│   └── tool                                    工具函数
+│       └── queryDeal.js
+├── test.html
+└── tree.md                                     整体项目目录
