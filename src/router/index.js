@@ -2,8 +2,11 @@ const fs = require("fs");
 const path = require("path");
 const Router = require("koa-router");
 const basename = path.basename(module.filename);
-const router = Router();
+const config = require("../../config/base");
 
+const router = Router({
+  prefix: `/${config.prefix}`
+});
 fs.readdirSync(__dirname)
   .filter(function(file) {
     return (
