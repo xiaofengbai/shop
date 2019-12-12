@@ -7,6 +7,8 @@ import koaBody from "koa-body";
 import serve from "koa-static";
 import path from "path";
 import { get } from "lodash";
+import session from "koa-session2";
+import Store from "./config/store";
 import log4js from "./config/log4js";
 
 const logger = log4js.getLogger();
@@ -14,9 +16,18 @@ const app = new Koa();
 
 const logDir = path.join(__dirname, "logs");
 
+app.use(
+  session({
+    store: new Store()
+  })
+);
+
 app.use(async (ctx, next) => {
   const start = new Date();
-  ctx.set("Access-Control-Allow-Origin", get(ctx, "request.header.origin"));
+  if (config.server == "dev") {
+    ctx.set("Access-Control-Allow-Origin", get(ctx, "request.header.origin"));
+  }
+
   ctx.set("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
   ctx.set("Access-Control-Allow-Headers", "Content-Type");
   ctx.set("Access-Control-Allow-Credentials", true);
@@ -26,7 +37,6 @@ app.use(async (ctx, next) => {
   } else {
     await next();
   }
-
   const ms = new Date() - start;
   logger.info(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });

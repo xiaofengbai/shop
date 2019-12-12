@@ -10,9 +10,17 @@ module.exports = {
     url: "mongodb://127.0.0.1:27017/cddb",
     options: {
       user: "",
-      pass: ""
+      password: ""
     },
     baseDBName: "cddb"
+  },
+  redis: {
+    host: "127.0.0.1",
+    port: "6379",
+    password: "ferg!!@#rt6u521343tfdqw",
+    db: 0,
+    ttl: 60 * 60 * 0.5,
+    maxAge: 100000
   },
   prefix: "api"
 };
