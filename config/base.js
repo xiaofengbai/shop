@@ -19,8 +19,12 @@ module.exports = {
     port: "6379",
     password: "ferg!!@#rt6u521343tfdqw",
     db: 0,
-    ttl: 1000 * 60
+    ttl: 1000 * 60 * 60 * 60
   },
-  cookie: {},
+  cookie: {
+    path: "/",
+    httpOnly: false,
+    overwrite: true
+  },
   prefix: "api"
 };

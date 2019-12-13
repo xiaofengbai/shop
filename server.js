@@ -19,13 +19,7 @@ app.use(
   session({
     key: "SESSION_ID",
     store: new Store(),
-    cookie: {
-      maxAge: 1000 * 60 * 10,
-      expires: new Date("2020-12-12"),
-      path: "/",
-      httpOnly: false,
-      overwrite: true
-    }
+    cookie: config.cookie
   })
 );
 
