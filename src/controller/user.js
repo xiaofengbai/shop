@@ -10,6 +10,7 @@ export const getUser = async (ctx, next) => {
     };
   } else if (res.password !== password) {
     console.log(22222, ctx.session.user);
+    ctx.session.user1111 = "qwfwegerwe";
     ctx.body = {
       success: false,
       msg: "密码不正确"
@@ -17,6 +18,7 @@ export const getUser = async (ctx, next) => {
   } else if (res.password === password) {
     console.log("密码正确");
     ctx.session.user = "qwwe";
+    ctx.session.user1 = "qwwe";
     setInterval(() => {
       console.log(1111, ctx.session.user);
     }, 1000);

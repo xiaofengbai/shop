@@ -15,12 +15,12 @@ module.exports = {
     baseDBName: "cddb"
   },
   redis: {
-    host: "127.0.0.1",
+    host: "47.105.138.95",
     port: "6379",
     password: "ferg!!@#rt6u521343tfdqw",
     db: 0,
-    ttl: 60 * 60 * 0.5,
-    maxAge: 100000
+    ttl: 1000 * 60
   },
+  cookie: {},
   prefix: "api"
 };

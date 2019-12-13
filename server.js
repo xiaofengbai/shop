@@ -1,13 +1,12 @@
 import Koa from "koa";
-import webpack from "webpack";
 import router from "./src/router/index";
 import config from "./config/base";
 import db from "./config/mongo";
 import koaBody from "koa-body";
-import serve from "koa-static";
 import path from "path";
+import cookies from "cookies";
 import { get } from "lodash";
-import session from "koa-session2";
+import session from "koa-session-minimal";
 import Store from "./config/store";
 import log4js from "./config/log4js";
 
@@ -18,7 +17,15 @@ const logDir = path.join(__dirname, "logs");
 
 app.use(
   session({
-    store: new Store()
+    key: "SESSION_ID",
+    store: new Store(),
+    cookie: {
+      maxAge: 1000 * 60 * 10,
+      expires: new Date("2020-12-12"),
+      path: "/",
+      httpOnly: false,
+      overwrite: true
+    }
   })
 );
 

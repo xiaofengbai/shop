@@ -55,9 +55,16 @@ export default class Shop {
   async getDetail(ctx) {
     const { id } = ctx.params;
     const res = await shop.getDetail({ id });
+    ctx.session = {
+      user_id: Math.random()
+        .toString(36)
+        .substr(2),
+      count: 0
+    };
     ctx.body = {
       success: true,
-      data: res
+      data: res,
+      session: ctx.session
     };
   }
   async update(ctx) {

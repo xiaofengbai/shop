@@ -1,47 +1,36 @@
-import Redis from "ioredis";
-import { Store } from "koa-session2";
 import config from "./base";
+import Redis from "koa-redis";
 
-class RedisStore extends Store {
+class RedisStore {
   constructor() {
-    super();
-    this.redis = new Redis({
+    this.redis = Redis({
       port: config.redis.port,
-      host: config.redis.url,
+      host: config.redis.host,
       password: config.redis.password,
       db: config.redis.db,
-      ttl: config.redis.ttl,
       family: 4
     });
   }
 
-  async get(sid, ctx) {
-    let data = await this.redis.get(`SESSION:${sid}`);
-    return JSON.parse(data);
+  async get(sid) {
+    console.log(`get session ${sid}`);
+    return await this.redis.get(sid);
   }
 
-  async set(
-    session,
-    { sid = this.getID(24), maxAge = config.redis.maxAge } = {},
-    ctx
-  ) {
+  async set(sid, sess, dfttl) {
+    const ttl = config.redis.ttl ? config.redis.ttl : dfttl;
     try {
-      // Use redis set EX to automatically drop expired sessions
-      console.log(`SESSION:${sid}`);
-      await this.redis.set(
-        `SESSION:${sid}`,
-        JSON.stringify(session),
-        "EX",
-        maxAge / 1000
-      );
+      console.log(`set session ${sid} ttl= ${ttl}`);
+      await this.redis.set(sid, sess, ttl);
     } catch (e) {
       console.log(e);
     }
     return sid;
   }
 
-  async destroy(sid, ctx) {
-    return await this.redis.del(`SESSION:${sid}`);
+  async destroy(sid) {
+    console.log(`destroy session sid=${sid}`);
+    return await this.redis.del(sid);
   }
 }
 
