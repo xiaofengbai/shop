@@ -1,8 +1,12 @@
 import { findUser } from "../service/user";
-
+import crypto from "crypto";
 export const getUser = async (ctx, next) => {
   const { password, email } = ctx.body;
   const res = await findUser({ email });
+  console.log(111, res);
+  const md5 = crypto.createHash("md5");
+  const trs = md5.update(password).digest("hex");
+  console.log(11111, trs);
   if (!res) {
     ctx.body = {
       success: false,

@@ -7,7 +7,7 @@ const collectionName = "users";
 const schema = new Schema(
   {
     username: {
-      type: String,
+      type: String
     },
     password: {
       type: String,
