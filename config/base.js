@@ -6,6 +6,7 @@ module.exports = {
   server: process.env.SERVER || "dev",
   rootPath: global.rootPath,
   serveStatic: true,
+  md5Key: "1f32b9c9932c02227819a4151feed43e131aca40",
   db: {
     url: "mongodb://127.0.0.1:27017/cddb",
     options: {

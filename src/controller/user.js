@@ -1,12 +1,10 @@
 import { findUser } from "../service/user";
-import crypto from "crypto";
+import { getMd5 } from "../tool/md5";
+
 export const getUser = async (ctx, next) => {
   const { password, email } = ctx.body;
   const res = await findUser({ email });
-  console.log(111, res);
-  const md5 = crypto.createHash("md5");
-  const trs = md5.update(password).digest("hex");
-  console.log(11111, trs);
+  const parsePassword = getMd5(password);
   if (!res) {
     ctx.body = {
       success: false,
