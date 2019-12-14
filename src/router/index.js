@@ -69,7 +69,6 @@ function reader(dir, obj) {
 }
 
 const ws = object2object(reader(__dirname, pathDirObj));
-
 Object.keys(ws)
   .filter(function(file) {
     return (

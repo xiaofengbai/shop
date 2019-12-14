@@ -20,12 +20,23 @@ module.exports = {
     port: "6379",
     password: "ferg!!@#rt6u521343tfdqw",
     db: 0,
-    ttl: 1000 * 60 * 60 * 60
+    ttl: 1000 * 60 * 30
   },
   cookie: {
     path: "/",
     httpOnly: false,
     overwrite: true
+  },
+  email: {
+    qq: {
+      host: "smtp.qq.com",
+      port: "465",
+      secure: true,
+      auth: {
+        user: "2878640192@qq.com",
+        password: "phibpminuzpwdfae"
+      }
+    }
   },
   prefix: "api"
 };
