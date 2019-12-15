@@ -1,6 +1,12 @@
-import { findUser, create } from "../service/user";
+import {
+  findUser,
+  create,
+  findUserById,
+  changeLoginState
+} from "../service/user";
 import { getMd5 } from "../tool/md5";
 import store from "../tool/store";
+import config from "../../config/base";
 
 export const getUser = async (ctx, next) => {
   const { password, email } = ctx.body;
@@ -17,24 +23,27 @@ export const getUser = async (ctx, next) => {
       msg: "密码不正确"
     };
   } else if (res.password === parsePassword) {
-    ctx.session.user = res;
+    ctx.session.userId = res._id;
+    await changeLoginState(res._id, true);
+    setTimeout(() => {
+      changeLoginState(res._id, false);
+    }, config.redis.ttl);
     ctx.body = {
       success: true,
-      userid: res._id,
-      role: "admin"
+      data: res._id
     };
   }
 };
 
 export const getCurrentUser = async (ctx, next) => {
-  const { user } = ctx.session;
-  if (!user) {
+  const { userId } = ctx.session;
+  if (!userId) {
     ctx.status = 401;
     return;
   } else {
     ctx.body = {
       success: true,
-      data: { ...ctx.session.user }
+      data: await findUserById(userId)
     };
   }
 };

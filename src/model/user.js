@@ -19,6 +19,10 @@ const schema = new Schema(
     email: {
       type: String,
       required: true
+    },
+    isLogin: {
+      type: Boolean,
+      default: false
     }
   },
   schemaOptions

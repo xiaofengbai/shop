@@ -20,7 +20,7 @@ module.exports = {
     port: "6379",
     password: "ferg!!@#rt6u521343tfdqw",
     db: 0,
-    ttl: 1000 * 60 * 30
+    ttl: 1000 * 60
   },
   cookie: {
     path: "/",

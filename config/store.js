@@ -2,7 +2,7 @@ import config from "./base";
 import Redis from "koa-redis";
 
 class RedisStore {
-  constructor() {
+  constructor(dconfig = {}) {
     this.redis = Redis({
       port: config.redis.port,
       host: config.redis.host,
@@ -10,6 +10,7 @@ class RedisStore {
       db: config.redis.db,
       family: 4
     });
+    this.dconfig = dconfig;
   }
 
   async get(sid) {
@@ -18,7 +19,13 @@ class RedisStore {
   }
 
   async set(sid, sess, dfttl) {
-    const ttl = dfttl ? dfttl : config.redis.ttl;
+    console.log(1111, this.dconfig);
+    const ttl =
+      this.dconfig && this.dconfig.ttl
+        ? this.dconfig.ttl
+        : config.redis.ttl
+        ? config.redis.ttl
+        : dfttl;
     try {
       console.log(`set session ${sid} ttl= ${ttl}`);
       await this.redis.set(sid, sess, ttl);
