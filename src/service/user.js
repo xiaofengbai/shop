@@ -5,6 +5,6 @@ export const create = async param => {
   return new userModel(param).save();
 };
 
-export const findUser = async ({ email }) => {
+export const findUser = async ({ email }, attathPassword) => {
   return userModel.findOne({ email });
 };

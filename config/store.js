@@ -18,7 +18,7 @@ class RedisStore {
   }
 
   async set(sid, sess, dfttl) {
-    const ttl = config.redis.ttl ? config.redis.ttl : dfttl;
+    const ttl = dfttl ? dfttl : config.redis.ttl;
     try {
       console.log(`set session ${sid} ttl= ${ttl}`);
       await this.redis.set(sid, sess, ttl);
@@ -30,7 +30,7 @@ class RedisStore {
 
   async destroy(sid) {
     console.log(`destroy session sid=${sid}`);
-    return await this.redis.del(sid);
+    return await this.redis.destroy(sid);
   }
 }
 
