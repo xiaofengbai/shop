@@ -20,7 +20,7 @@
       "skipFiles": ["<node_internals>/**"],
       "runtimeExecutable": "babel-node",
       "program": "${workspaceFolder}/server.js",
-      // "runtimeArgs": ["SERVER=dev"]
+      // "runtimeArgs": ["SERVER=dev"] 
     }
   ]
 }

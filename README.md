@@ -1,8 +1,4 @@
 # shop
-### 这几天没时间更新文档，存在一些别的问题要处理我已经申请了一个域名[georgette.top](http://georgette.top/)没有备案，有时候不能访问
-
-## [Node](https://nodejs.org/)基础的[介绍](https://www.runoob.com/nodejs/nodejs-tutorial.html)
-
 [](https://nodejs.org/en/download/releases/)Node
 
 ## [MongoDB](https://www.mongodb.com/)
